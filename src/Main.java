@@ -45,8 +45,7 @@ public class Main {
 			String title 	= map.get("title");
 			String image 	= map.get("image");
 			String price	= map.get("price");
-			
-			//String tag 		= map.get("tag");
+			String tag 		= map.get("discount");
 
 			//System.out.println("eventUrl " + gameUrl);
 			System.out.println("title " + title);
@@ -91,12 +90,12 @@ public class Main {
 	
 		targets.put("title", 	new String[]{"body > div > div.page-wrap > div.base-main-wrapper > div.inner-main-wrapper > section > div.main-content > div.full-width-container.js-page-content > div > div > div.js-search-results-holder.search-results-holder.entity-list > div > div.chunks-container > div.list-content.js-list-content.show-status-container > ul > li:nth-child(17) > div > div > a > div > div > span","getText"});
 		targets.put("image", 	new String[]{"body > div > div.page-wrap > div.base-main-wrapper > div.inner-main-wrapper > section > div.main-content > div.full-width-container.js-page-content > div > div > div.js-search-results-holder.search-results-holder.entity-list > div > div.chunks-container > div.list-content.js-list-content.show-status-container > ul > li:nth-child(9) > div > div > a > div > img","src"});
-		//targets.put("tag", 		new String[]{"div > div > a","getText"});
+		targets.put("discount",	new String[]{"discount-percentage","getText"});
 		//targets.put("href", 	new String[]{"entity-title","href"});
 		targets.put("price",	new String[]{"body > div > div.page-wrap > div.base-main-wrapper > div.inner-main-wrapper > section > div.main-content > div.full-width-container.js-page-content > div > div > div.js-search-results-holder.search-results-holder.entity-list > div > div.chunks-container > div.list-content.js-list-content.show-status-container > ul > li:nth-child(1) > div > div > div > div.entity-pricing.js-price-container > div > div > span.price", "getText"});
 
 		Crawler.setWaitTime(3000);
-		Crawler.setNextPageSelector("a.js-grid-next.grid-next.grid-page-nav.hb.hb-angle-right");
+		//Crawler.setNextPageSelector("a.js-grid-next.grid-next.grid-page-nav.hb.hb-angle-right");
 		Crawler.setEventSelector("body > div > div.page-wrap > div.base-main-wrapper > div.inner-main-wrapper > section > div.main-content > div.full-width-container.js-page-content > div > div > div.js-search-results-holder.search-results-holder.entity-list > div > div.chunks-container > div.list-content.js-list-content.show-status-container > ul > li:nth-child(2)");
 		
 		pathfinderData = Crawler.start(driver, targets);
