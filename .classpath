@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="D:/Users/Tomas/Documents/libraries/algorithm.jar"/>
+	<classpathentry kind="lib" path="D:/Users/Tomas/Documents/libraries/antlr-runtime-3.2.jar"/>
+	<classpathentry kind="lib" path="D:/Users/Tomas/Documents/libraries/blocks.jar"/>
+	<classpathentry kind="lib" path="D:/Users/Tomas/Documents/libraries/blocks-2.0.jar"/>
+	<classpathentry kind="lib" path="D:/Users/Tomas/Documents/libraries/findlinks.jar"/>
+	<classpathentry kind="lib" path="D:/Users/Tomas/Documents/libraries/ical4j-1.0.6.jar"/>
+	<classpathentry kind="lib" path="D:/Users/Tomas/Documents/libraries/jsoup-1.8.3.jar"/>
+	<classpathentry kind="lib" path="D:/Users/Tomas/Documents/libraries/natty-0.7.jar"/>
+	<classpathentry kind="lib" path="D:/Users/Tomas/Documents/libraries/pathfinder.jar"/>
+	<classpathentry kind="lib" path="D:/Users/Tomas/Documents/libraries/selenium-java-2.44.0.jar"/>
+	<classpathentry kind="lib" path="D:/Users/Tomas/Documents/libraries/selenium-server-standalone-2.44.0.jar"/>
+	<classpathentry kind="lib" path="D:/Users/Tomas/Documents/libraries/simmetrics.jar"/>
+	<classpathentry kind="lib" path="D:/Users/Tomas/Documents/libraries/sqljdbc4.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
