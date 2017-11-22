@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import nu.eve.pathfinder.Browser;
@@ -53,6 +54,7 @@ public class Main {
 			String price	= map.get("price");
 			String discount	= map.get("discount");
 			String platform = map.get("platform");
+			String gameUrl	= map.get("href");
 			
 			if(platform.toLowerCase().contains("steam"))
 			{
@@ -64,16 +66,39 @@ public class Main {
 			}
 
 			//System.out.println("eventUrl " + gameUrl);
+			
+			
+			
+			try
+			{
+			SeleniumUtils.navigate(driver, gameUrl, By.cssSelector("select.selection.js-selection.js-selection-year"));
+			Select dropdown = new Select(driver.findElement(By.cssSelector("select.selection:nth-child(3)")));
+			dropdown.selectByIndex(1990);
+			driver.findElement(By.cssSelector("input.age-check-button.submit-button.js-submit-button")).click();
+			}
+			catch(NoSuchElementException e)
+			{
+				SeleniumUtils.navigate(driver, gameUrl, By.cssSelector("span.js-days.digit"));	
+			}
+			
+			String daysAvailable = driver.findElement(By.cssSelector("span.js-days.digit")).getText();
+			String hoursAvailable = driver.findElement(By.cssSelector("span.js-hours.digit")).getText();
+			String minutsAvailable = driver.findElement(By.cssSelector("span.js-minutes.digit")).getText();
+			String secondsAvailable = driver.findElement(By.cssSelector("span.js-seconds.digit")).getText();
+			
+			String timeAvailable = daysAvailable + ":" + hoursAvailable + ":" + minutsAvailable + ":" +  secondsAvailable;
+			
+			
+			
+			System.out.println(timeAvailable);
 			System.out.println("title " + title);
 			System.out.println("date " + price);
 			System.out.println("image " + image);
 			System.out.println("discount " + discount);
 			System.out.println("platform " + platform);
+			System.out.println("url " + gameUrl);
 			System.out.println("--------------------------------------------");
 
-			//SeleniumUtils.navigate(driver, gameUrl, By.cssSelector("body"));
-			
-			
 			//Event event = new Event();
 			//event.setEventUrl(gameUrl);
 			//event.setTitle(title);
@@ -111,7 +136,7 @@ public class Main {
 		targets.put("title", 	new String[]{"body > div > div.page-wrap > div.base-main-wrapper > div.inner-main-wrapper > section > div.main-content > div.full-width-container.js-page-content > div > div > div.js-search-results-holder.search-results-holder.entity-list > div > div.chunks-container > div.list-content.js-list-content.show-status-container > ul > li:nth-child(17) > div > div > a > div > div > span","getText"});
 		targets.put("image", 	new String[]{"body > div > div.page-wrap > div.base-main-wrapper > div.inner-main-wrapper > section > div.main-content > div.full-width-container.js-page-content > div > div > div.js-search-results-holder.search-results-holder.entity-list > div > div.chunks-container > div.list-content.js-list-content.show-status-container > ul > li:nth-child(9) > div > div > a > div > img","src"});
 		targets.put("discount",	new String[]{"body > div > div.page-wrap > div.base-main-wrapper > div.inner-main-wrapper > section > div.main-content > div.full-width-container.js-page-content > div > div > div.js-search-results-holder.search-results-holder.entity-list > div > div.chunks-container > div.list-content.js-list-content.show-status-container > ul > li:nth-child(1) > div > div > div > div.entity-pricing.js-price-container > div > span","getText"});
-		//targets.put("href", 	new String[]{"entity-title","href"});
+		targets.put("href", 	new String[]{"a.entity-link.js-entity-link","href"});
 		targets.put("price",	new String[]{"body > div > div.page-wrap > div.base-main-wrapper > div.inner-main-wrapper > section > div.main-content > div.full-width-container.js-page-content > div > div > div.js-search-results-holder.search-results-holder.entity-list > div > div.chunks-container > div.list-content.js-list-content.show-status-container > ul > li:nth-child(1) > div > div > div > div.entity-pricing.js-price-container > div > div > span.price", "getText"});
 		targets.put("platform",	new String[]{"body > div > div.page-wrap > div.base-main-wrapper > div.inner-main-wrapper > section > div.main-content > div.full-width-container.js-page-content > div > div > div.js-search-results-holder.search-results-holder.entity-list > div > div.chunks-container > div.list-content.js-list-content.show-status-container > ul > li:nth-child(1) > div > div > div > div.entity-devices.js-platform-delivery-container > div > ul.platforms.no-style-list", "innerHTML"});
 		
