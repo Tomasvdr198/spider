@@ -11,6 +11,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import nu.eve.pathfinder.Browser;
 import nu.eve.pathfinder.Crawler;
 import nu.eve.simpleEvent.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  * 
@@ -23,6 +26,7 @@ import nu.eve.simpleEvent.*;
  *
  */
 
+
 public class Main { 
 
 	public static WebDriver driver = SeleniumUtils.getDriver(SeleniumUtils.DRIVER_TYPE_FIREFOX);
@@ -34,6 +38,21 @@ public class Main {
 	public int i = 1;
 	public static boolean toNext = true;
 	public static String nextPageSelector = ".js-grid-next";
+	
+	  public static void dataBase(String[] argv) throws Exception {
+		    String driverName = "org.gjt.mm.mysql.Driver";
+		    Class.forName(driverName);
+
+		    String serverName = "localhost";
+		    String mydatabase = "humblebundlespider";
+		    String url = "jdbc:mysql://" + serverName + "/" + mydatabase; 
+
+		    String username = "username";
+		    String password = "password";
+		    Connection connection = DriverManager.getConnection(url, username, password);
+		  }
+
+	
 
 		
 	public static void main(String[] args)
@@ -65,32 +84,36 @@ public class Main {
 				platform = "";
 			}
 
-			//System.out.println("eventUrl " + gameUrl);
+		
 			
+			// create a Statement from the connection
+			Statement statement = conn.createStatement();
+
+			// insert the data
+			statement.executeUpdate("INSERT INTO Customers " + "VALUES (1001, 'Simpson', 'Mr.', 'Springfield', 2001)");
+//			
+//			try
+//			{
+//			SeleniumUtils.navigate(driver, gameUrl, By.cssSelector("select.selection.js-selection.js-selection-year"));
+//			Select dropdown = new Select(driver.findElement(By.cssSelector("select.selection:nth-child(3)")));
+//			dropdown.selectByIndex(1990);
+//			driver.findElement(By.cssSelector("input.age-check-button.submit-button.js-submit-button")).click();
+//			}
+//			catch(NoSuchElementException e)
+//			{
+//				SeleniumUtils.navigate(driver, gameUrl, By.cssSelector("span.js-days.digit"));	
+//			}
+//			
+//			String daysAvailable = driver.findElement(By.cssSelector("span.js-days.digit")).getText();
+//			String hoursAvailable = driver.findElement(By.cssSelector("span.js-hours.digit")).getText();
+//			String minutsAvailable = driver.findElement(By.cssSelector("span.js-minutes.digit")).getText();
+//			String secondsAvailable = driver.findElement(By.cssSelector("span.js-seconds.digit")).getText();
+//			
+//			String timeAvailable = daysAvailable + ":" + hoursAvailable + ":" + minutsAvailable + ":" +  secondsAvailable;
+//			
 			
-			
-			try
-			{
-			SeleniumUtils.navigate(driver, gameUrl, By.cssSelector("select.selection.js-selection.js-selection-year"));
-			Select dropdown = new Select(driver.findElement(By.cssSelector("select.selection:nth-child(3)")));
-			dropdown.selectByIndex(1990);
-			driver.findElement(By.cssSelector("input.age-check-button.submit-button.js-submit-button")).click();
-			}
-			catch(NoSuchElementException e)
-			{
-				SeleniumUtils.navigate(driver, gameUrl, By.cssSelector("span.js-days.digit"));	
-			}
-			
-			String daysAvailable = driver.findElement(By.cssSelector("span.js-days.digit")).getText();
-			String hoursAvailable = driver.findElement(By.cssSelector("span.js-hours.digit")).getText();
-			String minutsAvailable = driver.findElement(By.cssSelector("span.js-minutes.digit")).getText();
-			String secondsAvailable = driver.findElement(By.cssSelector("span.js-seconds.digit")).getText();
-			
-			String timeAvailable = daysAvailable + ":" + hoursAvailable + ":" + minutsAvailable + ":" +  secondsAvailable;
-			
-			
-			
-			System.out.println(timeAvailable);
+//			
+//			System.out.println(timeAvailable);
 			System.out.println("title " + title);
 			System.out.println("date " + price);
 			System.out.println("image " + image);
@@ -143,7 +166,7 @@ public class Main {
 		Crawler.setWaitTime(1500);
 		//Crawler.setNextPageSelector("a.js-grid-next.grid-next.grid-page-nav.hb.hb-angle-right");
 		
-		Crawler.setNextPageSelector(nextPageSelector);
+		//Crawler.setNextPageSelector(nextPageSelector);
 		Crawler.setEventSelector("body > div > div.page-wrap > div.base-main-wrapper > div.inner-main-wrapper > section > div.main-content > div.full-width-container.js-page-content > div > div > div.js-search-results-holder.search-results-holder.entity-list > div > div.chunks-container > div.list-content.js-list-content.show-status-container > ul > li:nth-child(2)");
 		Crawler.setUrlCheck(true);
 		
