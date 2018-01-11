@@ -77,7 +77,7 @@ public class Main {
 			}
 
 			
-			dataBaseSend(title, image, price, discount, platform, gameUrl);
+			//dataBaseSend(title, image, price, discount, platform, gameUrl);
 			
 			
 			
@@ -88,29 +88,29 @@ public class Main {
 
 			// insert the data
 			//statement.executeUpdate("INSERT INTO Customers " + "VALUES (1001, 'Simpson', 'Mr.', 'Springfield', 2001)");
-//			
-//			try
-//			{
-//			SeleniumUtils.navigate(driver, gameUrl, By.cssSelector("select.selection.js-selection.js-selection-year"));
-//			Select dropdown = new Select(driver.findElement(By.cssSelector("select.selection:nth-child(3)")));
-//			dropdown.selectByIndex(1990);
-//			driver.findElement(By.cssSelector("input.age-check-button.submit-button.js-submit-button")).click();
-//			}
-//			catch(NoSuchElementException e)
-//			{
-//				SeleniumUtils.navigate(driver, gameUrl, By.cssSelector("span.js-days.digit"));	
-//			}
-//			
-//			String daysAvailable = driver.findElement(By.cssSelector("span.js-days.digit")).getText();
-//			String hoursAvailable = driver.findElement(By.cssSelector("span.js-hours.digit")).getText();
-//			String minutsAvailable = driver.findElement(By.cssSelector("span.js-minutes.digit")).getText();
-//			String secondsAvailable = driver.findElement(By.cssSelector("span.js-seconds.digit")).getText();
-//			
-//			String timeAvailable = daysAvailable + ":" + hoursAvailable + ":" + minutsAvailable + ":" +  secondsAvailable;
-//			
 			
-//			
-//			System.out.println(timeAvailable);
+			try
+			{
+			SeleniumUtils.navigate(driver, gameUrl, By.cssSelector(""));
+			Select dropdown = new Select(driver.findElement(By.cssSelector("select.selection:nth-child(3)")));
+			dropdown.selectByIndex(1990);
+			driver.findElement(By.cssSelector("input.age-check-button.submit-button.js-submit-button")).click();
+			}
+			catch(NoSuchElementException e)
+			{
+				SeleniumUtils.navigate(driver, gameUrl, By.cssSelector("span.js-days.digit"));	
+			}
+			
+			String daysAvailable = driver.findElement(By.cssSelector("span.js-days.digit")).getText();
+			String hoursAvailable = driver.findElement(By.cssSelector("span.js-hours.digit")).getText();
+			String minutsAvailable = driver.findElement(By.cssSelector("span.js-minutes.digit")).getText();
+			String secondsAvailable = driver.findElement(By.cssSelector("span.js-seconds.digit")).getText();
+			
+			String timeAvailable = daysAvailable + ":" + hoursAvailable + ":" + minutsAvailable + ":" +  secondsAvailable;
+			
+			
+			
+			System.out.println(timeAvailable);
 			System.out.println("title " + title);
 			System.out.println("date " + price);
 			System.out.println("image " + image);
@@ -119,28 +119,7 @@ public class Main {
 			System.out.println("url " + gameUrl);
 			System.out.println("--------------------------------------------");
 
-			//Event event = new Event();
-			//event.setEventUrl(gameUrl);
-			//event.setTitle(title);
-			//event.setStartTime(price);
-
-
-			//EventTicket ticket = new EventTicket();
 			
-
-
-//			Venue venue = new Venue();
-//			venue.setId(1053);
-//
-//			//EventType type = new EventType(tag, 5);
-//
-//			event.setVenue(venue);
-//			//event.setType(type);
-//			event.setTicket(ticket);
-//
-//
-//
-//			event.sendEvent();
 			
 		}
 
