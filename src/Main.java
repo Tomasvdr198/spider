@@ -10,53 +10,45 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import nu.eve.pathfinder.Browser;
 import nu.eve.pathfinder.Crawler;
-import nu.eve.simpleEvent.*;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Date;
+
 
 /**
  * 
- * @author 		Rachid
- * @spider		1337
- * @version		1.0
- * @created		1970-01-01 00:00
- * @last_edited	2016-09-05 12:26
- * @comments	
- *
+ * @author 		Tomas
+ * 
  */
 
 
 public class Main { 
 
 	public static WebDriver driver = SeleniumUtils.getDriver(SeleniumUtils.DRIVER_TYPE_FIREFOX);
-	public static String website = "https://www.humblebundle.com/store/search?sort=discount&filter=onsale&page=156";
+	public static String website = "https://www.humblebundle.com/store/search?sort=discount&filter=onsale&page=4";
 	public static WebDriverWait wait = new WebDriverWait(driver,20);
 	public static int spiderID = 200;
 	public static ArrayList<Map<String, String>> pathfinderData;
-	public static List<Event> events = new ArrayList<Event>();
 	public int i = 1;
 	public static boolean toNext = true;
 	public static String nextPageSelector = ".js-grid-next";
+	private static Connection connect = null;
+	private static Statement statement = null;
+	private static PreparedStatement preparedStatement = null;
+	private static ResultSet resultSet = null;
+	 
 	
-	  public static void dataBase(String[] argv) throws Exception {
-		    String driverName = "org.gjt.mm.mysql.Driver";
-		    Class.forName(driverName);
-
-		    String serverName = "localhost";
-		    String mydatabase = "humblebundlespider";
-		    String url = "jdbc:mysql://" + serverName + "/" + mydatabase; 
-
-		    String username = "username";
-		    String password = "password";
-		    Connection connection = DriverManager.getConnection(url, username, password);
-		  }
-
-	
-
 		
 	public static void main(String[] args)
 	{
+		
+		    
+		 
 		SeleniumUtils.enableLog(true);
 		SeleniumUtils.navigate(driver, website, By.cssSelector("entity-block-container js-entity-container"));
 		
@@ -84,13 +76,18 @@ public class Main {
 				platform = "";
 			}
 
-		
+			
+			dataBaseSend(title, image, price, discount, platform, gameUrl);
+			
+			
+			
+			
 			
 			// create a Statement from the connection
-			Statement statement = conn.createStatement();
+			//Statement statement = conn.createStatement();
 
 			// insert the data
-			statement.executeUpdate("INSERT INTO Customers " + "VALUES (1001, 'Simpson', 'Mr.', 'Springfield', 2001)");
+			//statement.executeUpdate("INSERT INTO Customers " + "VALUES (1001, 'Simpson', 'Mr.', 'Springfield', 2001)");
 //			
 //			try
 //			{
@@ -166,7 +163,7 @@ public class Main {
 		Crawler.setWaitTime(1500);
 		//Crawler.setNextPageSelector("a.js-grid-next.grid-next.grid-page-nav.hb.hb-angle-right");
 		
-		//Crawler.setNextPageSelector(nextPageSelector);
+		Crawler.setNextPageSelector(nextPageSelector);
 		Crawler.setEventSelector("body > div > div.page-wrap > div.base-main-wrapper > div.inner-main-wrapper > section > div.main-content > div.full-width-container.js-page-content > div > div > div.js-search-results-holder.search-results-holder.entity-list > div > div.chunks-container > div.list-content.js-list-content.show-status-container > ul > li:nth-child(2)");
 		Crawler.setUrlCheck(true);
 		
@@ -174,6 +171,46 @@ public class Main {
 		
 		
 	}
+	
+	  
+	
+	 static void dataBaseSend(String title, String image, String price,  String discount, String platform, String gameUrl ){  
+		try{  
+			
+			 // This will load the MySQL driver, each DB has its own driver
+            Class.forName("com.mysql.jdbc.Driver");
+            // Setup the connection with the DB
+            connect = DriverManager
+                    .getConnection("jdbc:mysql://localhost/humblebundlespider?"
+                            + "user=root&password=");
+            
+            statement = connect.createStatement();
+            // Result set get the result of the SQL query
+            resultSet = statement
+                    .executeQuery("select * from free_games");
+            
+			preparedStatement = connect
+			        .prepareStatement("insert into  free_games values (?, ?, ? , ?, ?, ?, default)");
+			System.out.println("title is " + title);
+			 preparedStatement.setString(1, title);
+	         preparedStatement.setString(2, image);
+	         preparedStatement.setString(3, price);
+	         preparedStatement.setString(4, discount);
+	         preparedStatement.setString(5, platform);
+	         preparedStatement.setString(6, gameUrl);
+	         preparedStatement.executeUpdate();
+	         
+	         preparedStatement = connect
+	                    .prepareStatement("SELECT game_title, game_image, game_price, game_discount, game_platform, game_url COMMENTS from free_games");
+	            resultSet = preparedStatement.executeQuery();
+	            
+	            System.out.println("games in database gezet");
+		}catch(Exception e){ System.out.println(e);}  
+		
+		
+		
+	}  
+
 
 }
 
